@@ -1,29 +1,36 @@
 <?php
 
-$default  = "c:r:d::";
+$default  = "c:r:d::"; //принимаемые параметры
 
-$comand_data = getopt($default, [], $false);
+$comand_data = getopt($default, [], $false); //получение массива команд с параметрами
 
 
 $start_path = "";
 
+/**
+ * проверка каждого параметра на соответствие
+ */
 foreach($comand_data as $c_name => $c_data){
 
     if($c_name == "c" and trim($c_data) != ""){
         create_test_dirs_with_files($c_data, $c_data."xx");
+    }elseif($c_name == "с" and trim($c_data) == ""){
+        echo ("Warning: Параметр '-с' не может быть пустым"); die();
     }
 
 
     if($c_name == "r" and trim($c_data) != ""){
         $start_path = $c_data;
         clear_dir($c_data);
+    }elseif($c_name == "r" and trim($c_data) == ""){
+        echo ("Warning: Параметр '-r' не может быть пустым"); die();
     }
 
     if($c_name == "d"){
         if(isset($comand_data["r"]))
         delete_dir($start_path);
         else
-        echo ("Warning: Не известный путь для очистки используйте вместе с '-r'"); die();
+        echo ("Warning: Не известный путь для очистки используйте вместе с параметром '-r'"); die();
     }
 
 }
