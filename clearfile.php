@@ -71,13 +71,17 @@ function create_test_dirs_with_files($path, $dir, $stop = 10)
 function delete_dir($path){
     $exclude = [".", ".."];
     $dirs =  scandir( $path );
-    
+
+    if(count(array_diff($dirs, $exclude)) == 0){
+        rmdir($path);
+        return;
+    }
+
     foreach ($dirs as $df) {
         $next_path = $path . "/" . $df;
         if ( is_dir($next_path) and (!in_array($df, $exclude)) ) {
             $s_dir = scandir( $next_path );
             $rm_exclude = array_diff($s_dir, $exclude);
-           // var_dump($rm_exclude); die;
             $has_element = count( $rm_exclude );
             if($has_element){ 
                 delete_dir($next_path);
