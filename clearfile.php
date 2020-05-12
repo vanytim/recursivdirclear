@@ -23,10 +23,11 @@ foreach($comand_data as $c_name => $c_data){
     }
 
     if($c_name == "d"){
+        if(isset($comand_data["r"]))
         delete_dir($star_path);
+        else
+        echo ("Warning: Не известный путь для очистки используйте вместе с '-r'"); die();
     }
-
-
 
 }
 
