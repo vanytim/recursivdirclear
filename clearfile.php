@@ -1,14 +1,11 @@
 <?php
 
 $default  = "c:r:d::";
-$optind = true;
 
 $comand_data = getopt($default, [], $false);
 
-/* print_r($comand_data);
-die(); */
 
-$star_path = "";
+$start_path = "";
 
 foreach($comand_data as $c_name => $c_data){
 
@@ -18,13 +15,13 @@ foreach($comand_data as $c_name => $c_data){
 
 
     if($c_name == "r" and trim($c_data) != ""){
-        $star_path = $c_data;
+        $start_path = $c_data;
         clear_dir($c_data);
     }
 
     if($c_name == "d"){
         if(isset($comand_data["r"]))
-        delete_dir($star_path);
+        delete_dir($start_path);
         else
         echo ("Warning: Не известный путь для очистки используйте вместе с '-r'"); die();
     }
@@ -91,7 +88,6 @@ function delete_dir($path){
                 $parent = substr($next_path, 0, strrpos($next_path, "/"));
                 delete_dir($parent);
             }
-            //var_dump($has_element); die();
             
         }
     }
@@ -122,11 +118,6 @@ function clear_dir($path){
  * удаляет *.bat файл если у него нету соответствующего ему *.doc файла
  * 
  * @param mixed $path путь к папке с файлами для проверки 
- * @param mixed $search_doc 
- * @param mixed $search_bat 
- * @param mixed $bat 
- * @param mixed $for_find_doc 
- * @return void 
  */
 
 function rem_bat_file($path){
