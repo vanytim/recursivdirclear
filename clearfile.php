@@ -1,6 +1,6 @@
 <?php
 
-$default  = "c:r:d::"; //принимаемые параметры
+$default  = "c:r:d:"; //принимаемые параметры
 
 $comand_data = getopt($default, [], $false); //получение массива команд с параметрами
 
@@ -10,6 +10,7 @@ $start_path = "";
 /**
  * проверка каждого параметра на соответствие
  */
+
 foreach($comand_data as $c_name => $c_data){
 
     if($c_name == "c" and trim($c_data) != ""){
@@ -108,7 +109,7 @@ function delete_dir($path){
 function clear_dir($path){
    $exclude = [".", ".."];
    $dirs =  scandir( $path );
-    // var_dump($dirs);
+
     rem_bat_file($path);
 
     foreach ($dirs as $df) {
@@ -132,11 +133,9 @@ function rem_bat_file($path){
     $search_doc = glob($path . "/*.doc");
     $search_bat = glob($path . "/*.bat");
 
-    //var_dump($search_bat); die;
-
     foreach ($search_bat as $bat) {
         $for_find_doc = substr($bat, 0, -4).".doc";
-        //var_dump($for_find_doc); die;
+
         if (!in_array($for_find_doc, $search_doc)) {
             unlink($bat);
         }
